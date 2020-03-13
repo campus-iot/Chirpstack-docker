@@ -2,12 +2,12 @@ version: "3"
 
 services:
   chirpstack-network-server:
-    image: mathieudv/chirpstack-network-server:0.1-geo
+    image: mathieudv/chirpstack-network-server:1.0-geo
     volumes:
       - ./configuration/chirpstack-network-server:/etc/chirpstack-network-server
 
   chirpstack-application-server:
-    image: mathieudv/chirpstack-application-server:0.1-geo
+    image: mathieudv/chirpstack-application-server:1.1-geo
     ports:
       - 8080:8080
     volumes:
@@ -21,7 +21,7 @@ services:
       - ./configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
 
   chirpstack-geolocation-server:
-    image: mathieudv/chirpstack-geolocation-server:0.1-geo
+    image: mathieudv/chirpstack-geolocation-server:1.0-geo
     volumes:
       - ./configuration/chirpstack-geolocation-server:/etc/chirpstack-geolocation-server
 
