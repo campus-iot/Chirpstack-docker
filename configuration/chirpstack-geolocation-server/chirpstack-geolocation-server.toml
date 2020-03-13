@@ -2,11 +2,11 @@
 # configuration example and documentation.
 
 [geo_server.backend]
-name="collos"
+name="willy"
 
-[geo_server.backend.collos]
+[geo_server.backend.willy]
 # Collos subscription key.
 #
 # This key can be retrieved after creating a Collos account at:
 # http://preview.collos.org/
-subscription_key=""
+request_timeout=60
