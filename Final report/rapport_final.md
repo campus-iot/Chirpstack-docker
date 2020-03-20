@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 
 # 1. Présentation du projet:
 ChirpStack est un projet open source permettant la création de réseaux privés LoRaWAN. Le projet Campus IOT en est un bon exemple d’application. Notre objectif est d’améliorer la plateforme ChirpStack en ajoutant des fonctionnalités. Cela comprend l’ajout de nouvelles contributions, avec l’ajout de technologies Prometheus-Grafana et Kafka, mais également sur l’intégration de contribution datant de l’année dernière, portant sur la sécurisation des gateways et la visualisation de la position d’un device sur une carte interactive.
@@ -12,29 +17,33 @@ De plus, Julien n’a pu commencé à travailler qu’en cours de projet (à par
 # 3. Gestion de projet
 Voici un diagramme montrant la planification du projet
 
-## image
+![image](https://raw.githubusercontent.com/hoellejal/chirpstack-docker/final-report/Final%20report/gant.png)
 
 # 4. Technologies et outils utilisés
 L’architecture de Chirpstack comporte plusieurs composants logiciels résumés dans le schéma ci-dessous qui provient de la documentation de Chirpstack:
-## image
+
+![](https://raw.githubusercontent.com/hoellejal/chirpstack-docker/final-report/Final%20report/archi.png)
 
 Ces composants sont majoritairement codés en Go et en JavaScript. L’API est générée à partir des fichiers de configuration gRPC et Protobuf, et ceci en plusieurs languages (Go, Python, JavaScript/TypeScript et Rust). Notre travail a concerné tous les composants de ChirpStack sauf le gateway bridge.
 
 ### 4.1 Prometheus: 
 Prometheus est un logiciel open source permettant d’enregistrer, en temps réel, des métriques dans une base de données. Le langage PromQL permet ensuite de faire des requêtes vers cette base de données. Plusieurs métriques Prometheus sont incluses dans les composants de ChirpStack mais pas Prometheus lui-même, encourageant à sa future intégration.
+
 ### 4.2 Grafana:
 Grafana est un logiciel open source permettant de créer facilement des dashboards personnalisables. Il est spécialisé dans la visualisation de données temporelles, qu’il peut extraire depuis de nombreuses sources ou bases de données. Il est également basé sur une API HTTP. L’association Prometheus-Grafana est une architecture standard pour une utilisation de monitoring d’application.
 
 ### 4.3 Kafka:
 Apache Kafka est une plateforme opensource de diffusion de messages, permettant d’émettre des flux de données. Il se base sur une architecture producteur-consommateur organisée en topics où on enregistre des messages. Il permet des manipulations en temps réel sur les flux grâce à un système unifié d’accès, gérant les demandes des consommateurs. Voici un schéma illustrant son fonctionnement général:
 
-## image
+![](https://raw.githubusercontent.com/hoellejal/chirpstack-docker/final-report/Final%20report/Kafka.png)
 
 ### 4.4 Gitkraken:
 Gitkraken est un client graphique pour le logiciel Git qui facilite l'utilisation efficace et fiable de ce dernier et permet d’effectuer la plupart des opérations sans ligne de commande. GitKraken rend facile la visualisation de l’historique git, ce qui devient nécessaire quand on travaille sur un grand projet.
 
-# 5. Les intégrations:
+# 5. Les intégrations
+
 ### 5.1 De l’année dernière
+
 ##### 5.1.1 MQTT authentification des gateways
 Cette fonctionnalité avait pour but d’apporter une nouvelle possibilité d’identification des gateways, en les authentifiant avec une clé MQTT. Elle utilisait le plugin Mosquitto-go-auth, réalisé par Iegomez pour l’architecture de Chirpstack. Nous nous sommes aperçu ultérieurement que la plupart du code ne venait pas du groupe d’étudiants de l’an dernier et donc que cette fonctionnalité correspondait plus à un cas d’utilisation du plugin qu’à une nouvelle proposition d’authentification.
 Nos difficultés principales sur cette partie provenaient des changements à la base de données, c’est à dire des migrations Postgresql que nous avons ajouté et qui ont été compliquées à intégrer. En outre une mise à jour de l’image docker de Postgresql a eu lieu durant le projet et nous a obligé à modifier les fichiers de configuration. Nous avons aussi fait face à un problème important de persistance des modifications sur les formulaires, qui a requis de désactiver le cache et de recompiler l’API. Malheureusement la compilation des images docker pour l’API et l’application étaient particulièrement longue et a considérablement ralenti notre avancement. Enfin ce temps de compilation important a rendu compliqué les changements que nous avons apportés, notamment la décision de rendre l’authentification par clé MQTT facultative, afin d’assurer la rétrocompatibilité.
@@ -51,8 +60,10 @@ Nous avons cependant pu déterminer que cette contribution n’était pas foncti
 En conclusion, cette contribution pourrait être une base intéressante pour ajouter une carte de visualisation sur chaque device à partir d’un algorithme de géolocalisation ou des coordonnées transmises par le device. Cependant celle-ci n’a pas été codée avec rigueur, il paraît donc plus simple de recommencer cette fonctionnalité de zéro avec le travail effectué par le groupe d’Ensimag.
 
 ### 5.2 Prometheus-Grafana
-Voici le workflow que nous souhaitions réaliser sur Prometheus et Grafana:
-### image
+Voici le workflow que nous souhaitions réaliser sur Prometheus et Grafana :
+
+![](https://raw.githubusercontent.com/hoellejal/chirpstack-docker/final-report/Final%20report/prometheus.png)
+
 Prometheus a besoin que l’on expose les métriques à surveiller en créant des targets sur les composants cibles. Comme expliqué précédemment, chaque composant de Chirpstack comporte déjà un ensemble de métriques définies qui sont prêtes à être récupérées. La liste des targets disponibles est fournie à Prometheus grâce au fichier de configuration prometheus.yml. 
 	
 Sur une instance locale de Chirpstack, on peut trouver les métriques fournies par toutes les targets à l’adresse http://localhost:9090 (par défaut), ainsi que les détails et les requêtes PromQL qui sont déjà prêtes à l’exécution. 
@@ -69,8 +80,10 @@ Le backend de Kafka ressemble fortement au backend HTTP. Nous avons donc rajout�
 L'utilisateur doit créer un consommateur qui s'abonne aux topics Kafka afin de recevoir les messages de celui-ci. Nous avons utilisé aussi apache nifi en tant que consommateur pour effectuer des tests fonctionnels.
 
 Cette fonctionnalité n’a pas été terminée par manque de temps. L’intégration semble se faire correctement au niveau de l’API mais l’application ne voit pas certaines fonctions pourtant existantes.
+
 ### 5.4 TTN Mapper
 Comme son nom l’indique, TTN Mapper est une application pouvant être intégrée à une source de données issue de TTN de manière à visualiser ces données sur une carte. L’idée est donc de récupérer le flux MQTT de données issues du serveur Chirpstack et, via un bridge Node-RED, de les envoyer à TTN Mapper. Cependant, TTN Mapper ne reconnaît qu’un format particulier de données, c’est pourquoi il faut les transformer (grâce à un flot Node-RED) avant de les envoyer.
+
 # 6. Métriques logicielles
 Les seuls langages que nous avons utilisé dans ce projet sont le Go et le Javascript.
 
@@ -79,7 +92,8 @@ Nous avons estimé le temps ingénieur de notre projet à 1060h en tout parmi le
 
 Voici la répartition des commits dans le groupe en pourcentage (Julien étant exclu car il n’a pour le moment pas mis son travail sur git).
 
-# image
+![](https://raw.githubusercontent.com/hoellejal/chirpstack-docker/final-report/Final%20report/commit.png)
+
 # 7. Conclusion
 A la fin de ce projet nous avons pu faire deux pull-requests sur les répertoires ChirpStack, concernant le travail du groupe de l’année dernière sur l’authentification des gateways par des clés MQTT et la visualisation de métriques Prometheus avec un dashboard Grafana. Nous avons également ouvert trois issues, afin d’échanger principalement sur les fonctionnalités plutôt que sur leur implémentation et être à l’écoute des attentes de la communauté.
 
@@ -107,11 +121,9 @@ Nous avons également acquis de l’expérience pour nos soft skills, au niveau 
 [Schéma Chirpstack](https://www.chirpstack.io/overview/architecture/)
 [Forum Chirpstack](https://forum.chirpstack.io)
 
+### Screenshots Grafana :
 
+![](https://raw.githubusercontent.com/hoellejal/chirpstack-docker/final-report/Final%20report/screenshot1.png)
 
-
-
-
-
-
+![](https://raw.githubusercontent.com/hoellejal/chirpstack-docker/final-report/Final%20report/screenshot2.png)
 
