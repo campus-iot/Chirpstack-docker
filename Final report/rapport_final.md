@@ -82,7 +82,7 @@ L'utilisateur doit créer un consommateur qui s'abonne aux topics Kafka afin de 
 Cette fonctionnalité n’a pas été terminée par manque de temps. L’intégration semble se faire correctement au niveau de l’API mais l’application ne voit pas certaines fonctions pourtant existantes.
 
 ### 5.4 TTN Mapper
-Comme son nom l’indique, TTN Mapper est une application pouvant être intégrée à une source de données issue de TTN de manière à visualiser ces données sur une carte. L’idée est donc de récupérer le flux MQTT de données issues du serveur Chirpstack et, via un bridge Node-RED, de les envoyer à TTN Mapper. Cependant, TTN Mapper ne reconnaît qu’un format particulier de données, c’est pourquoi il faut les transformer (grâce à un flot Node-RED) avant de les envoyer.
+
 
 # 6. Métriques logicielles
 Les seuls langages que nous avons utilisé dans ce projet sont le Go et le Javascript.
