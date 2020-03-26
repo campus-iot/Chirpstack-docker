@@ -83,6 +83,16 @@ Cette fonctionnalité n’a pas été terminée par manque de temps. L’intégr
 
 ### 5.4 TTN Mapper
 
+Comme son nom l’indique, TTN Mapper est une application pouvant être intégrée à une source de données issue de TTN de manière à visualiser ces données sur une carte. L’idée est donc de récupérer le flux MQTT de données issues du serveur Chirpstack et, via un bridge Node-RED, de les envoyer à TTN Mapper. Cependant, TTN Mapper ne reconnaît qu’un format particulier de données, c’est pourquoi il faut les transformer (grâce à une configuration Node-RED) avant de les envoyer au service.
+
+Dans un premier temps donc, quelques commandes shell nous permettent de récupérer les flots de données qui sont transmises au serveur via une passerelle.
+
+L’outil Node-RED est ensuite utilisé pour créer le bridge entre MQTT et TTN ; grâce à une disposition de noeuds précise et une configuration spécifique, on peut aisément recueillir les flots de données et les transmettre à TTN. Cependant, comme expliqué précédemment, il est important de modifier le format de ces données. Un noeud intégrant une fonction JavaScript permet alors de filtrer les données pour ne récupérer que celles émises par un objet en particulier et de construire le JSON qui sera alors conduit vers TTN. Plusieurs clés sont ajoutées, d’autres sont supprimées ou renommées pour que le service soit au final capable d’interpréter ces données.
+
+Vient donc ensuite la troisième étape, celle de la récupération et la reconnaissance des données par TTN Mapper. Bien que cette partie n’ait pas pu être réalisée en local grâce à une instance privée comme demandé, elle a partiellement été faite en ligne via la console TTN et l’intégration de TTN Mapper à cette dernière. Les flots de données formatés y sont visualisés et décodés grâce à une fonction appropriée, cependant le service ne semble pas les reconnaître pleinement, probablement à cause d’une erreur lors de leur formatage.
+
+Comme énoncé, la création d’une instance locale de TTN Mapper n’a pas été faite. En plus de difficultés d’installation sur le serveur, l’accès à l’adresse locale permettant la visualisation des données sur la carte n’a pas été possible.
+
 
 # 6. Métriques logicielles
 Les seuls langages que nous avons utilisé dans ce projet sont le Go et le Javascript.
