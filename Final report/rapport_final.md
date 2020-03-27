@@ -1,9 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
-
 # 1. Présentation du projet:
 ChirpStack est un projet open source permettant la création de réseaux privés LoRaWAN. Le projet Campus IOT en est un bon exemple d’application. Notre objectif est d’améliorer la plateforme ChirpStack en ajoutant des fonctionnalités. Cela comprend l’ajout de nouvelles contributions, avec l’ajout de technologies Prometheus-Grafana et Kafka, mais également sur l’intégration de contribution datant de l’année dernière, portant sur la sécurisation des gateways et la visualisation de la position d’un device sur une carte interactive.
 
@@ -100,7 +94,7 @@ Les seuls langages que nous avons utilisé dans ce projet sont le Go et le Javas
 Nous avons estimé le temps ingénieur de notre projet à 1060h en tout parmi les 6 personnes du projet, en comptant tous les créneaux où nous avons travaillé à 5 et en ajoutant en plus le temps de travail de Julien. Nous avons décidé également de calculer le coût salarial de notre projet en nous basant sur une moyenne de salaire d’ingénieur IoT junior. Nous avons trouvé un salaire horaire moyen de 15.96€/h brut soit 12.29€/h net; ce qui fait donc un coût salarial total de 16 918€ en brut ou 13 027€ en net.
 
 
-Voici la répartition des commits dans le groupe en pourcentage (Julien étant exclu car il n’a pour le moment pas mis son travail sur git).
+Voici la répartition des commits dans le groupe en pourcentage (Julien étant exclu car ayant travailler indépendamment et sur un temps différent).
 
 ![](https://raw.githubusercontent.com/hoellejal/chirpstack-docker/final-report/Final%20report/commit.png)
 
